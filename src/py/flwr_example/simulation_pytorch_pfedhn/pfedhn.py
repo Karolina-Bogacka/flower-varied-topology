@@ -137,11 +137,10 @@ class pFedHN(FedAvg):
 
         if client.cid in self.weight_indexes:
             index, _ = self.weight_indexes[client.cid]
-            new_weights = self.hypernetwork.predict(index)
         else:
             index = len(self.weight_indexes)
-            new_weights = parameters_to_ndarrays(parameters)
 
+        new_weights = self.hypernetwork.predict(index)
         self.weight_indexes[client.cid] = (index, new_weights)
         fit_ins = FitIns(ndarrays_to_parameters(new_weights), config)
         # Return client/config pair
